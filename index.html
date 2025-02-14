@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #90CAF9; /* Azul claro */
+    }
+    
+    .rebote {
+      animation: rebote 2s ease infinite;
+    }
+
+    @keyframes rebote {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  
+ 
+  <div id="formularioUsuario" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Ingrese su nombre y edad</h2>
+      <input type="text" id="nombreUsuario" placeholder="Tu nombre" class="border p-2 rounded w-full mb-2">
+      <input type="number" id="edadUsuario" placeholder="Tu edad" class="border p-2 rounded w-full mb-4">
+      <button id="guardarDatos" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400">Guardar</button>
+    </div>
+  </div>
+
+
+  <div class="flex items-center justify-center h-screen text-gray-800">
+    <div class="flex flex-col items-center p-4">
+      <img id="imagenMostrar" src="./Video4.gif" alt="Pastel de cumpleaños" class="rounded-md h-[300px] object-cover" />
+      <h2 id="preguntaCumple" class="text-4xl font-bold italic text-blue-700 my-4">¿Listo para abrir tu regalo?</h2>
+      
+      <div class="flex gap-4 pt-[20px] items-center" id="botonesRespuesta">
+        <button id="botonAbrir" class="rebote inline-flex items-center justify-center rounded-md text-[20px] font-medium bg-blue-500 text-white px-4 py-2 transition hover:bg-blue-400">
+          Abrir regalo 🎁
+        </button>
+      </div>
+
+      <h3 id="mensajePersonalizado" class="text-3xl font-bold text-blue-800 mt-4 hidden">
+        ¡Feliz cumpleaños bebecito <span id="nombreMostrado"></span>! 🎂🥳 Espero que tengas un día increíble. 💖
+      </h3>
+
+      <div id="imagenesExtras" class="flex gap-4 mt-4 hidden justify-center">
+        <img src="./Video2.gif" alt="Sorpresa extra" class="rounded-md h-[300px] object-cover">
+        <img src="./Video.gif" alt="Regalo sorpresa" class="rounded-md h-[300px] object-cover">
+        <img src="./Video3.gif" alt="Otra sorpresa" class="rounded-md h-[300px] object-cover">
+      </div>
+      
+      <audio id="cancionCumple" src="./ANUELAA.mp3"></audio>
+    </div>
+  </div>
+
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
+    const botonAbrir = document.getElementById('botonAbrir');
+    const imagenMostrar = document.getElementById('imagenMostrar');
+    const preguntaCumple = document.getElementById('preguntaCumple');
+    const botonesRespuesta = document.getElementById('botonesRespuesta');
+    const mensajePersonalizado = document.getElementById('mensajePersonalizado');
+    const nombreMostrado = document.getElementById('nombreMostrado');
+    const imagenesExtras = document.getElementById('imagenesExtras');
+    const cancionCumple = document.getElementById('cancionCumple');
+
+    const formularioUsuario = document.getElementById('formularioUsuario');
+    const nombreUsuario = document.getElementById('nombreUsuario');
+    const edadUsuario = document.getElementById('edadUsuario');
+    const guardarDatos = document.getElementById('guardarDatos');
+
+    // Guardar datos y mostrar todo el contenido
+    guardarDatos.addEventListener('click', () => {
+      const nombre = nombreUsuario.value.trim();
+      const edad = edadUsuario.value.trim();
+      
+      if (nombre && edad) {
+        nombreMostrado.textContent = `${nombre} (${edad} años)`;
+        formularioUsuario.style.display = 'none';
+        mensajePersonalizado.classList.remove('hidden'); // Mostrar el mensaje personalizado
+      } else {
+        alert('Por favor, ingrese su nombre y edad.');
+      }
+    });
+
+    // Evento para abrir el regalo
+    botonAbrir.addEventListener('click', () => {
+      imagenMostrar.src = './Video5.gif';
+      preguntaCumple.textContent = "¡Espero que te guste tu regalo! 🎈✨";
+      botonesRespuesta.style.display = 'none';
+      confetti(); 
+      imagenesExtras.classList.remove('hidden');
+      cancionCumple.play();
+    });
+  </script>  
+</body>
+</html>
